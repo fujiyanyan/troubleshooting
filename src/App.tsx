@@ -1128,11 +1128,17 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
     return (
       <div className="max-w-[1200px] mx-auto min-h-screen pb-20 bg-slate-900">
         <Header showBack={false} />
-        <div className="p-8 space-y-10 fade-in max-w-[800px] mx-auto">
-          <div className="grid grid-cols-1 gap-6">
+        <div className="p-8 space-y-12 fade-in max-w-[800px] mx-auto">
+          {/* Preparation Section */}
+          <section className="space-y-4">
+            <div className="flex items-center gap-3 px-2">
+              <div className="w-1.5 h-6 bg-blue-500 rounded-full" />
+              <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest">Preparation / 事前準備</h2>
+            </div>
+            
             <button 
               onClick={() => { setView("rehearsal"); setRehearsalStep(0); setShowRehearsalSolution(false); setRehearsalOS(null); }}
-              className="group relative overflow-hidden p-8 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-2xl shadow-blue-900/40 border border-white/20 transition-all active:scale-[0.98]"
+              className="w-full group relative overflow-hidden p-8 rounded-[40px] bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-2xl shadow-blue-900/40 border border-white/20 transition-all active:scale-[0.98] hover:shadow-blue-500/30"
             >
               <div className="absolute top-0 right-0 p-4 opacity-10 -rotate-12 translate-x-4 -translate-y-4">
                 <CheckCircle2 className="w-48 h-48" />
@@ -1140,60 +1146,80 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
               <div className="relative z-10 flex items-center justify-between">
                 <div className="text-left space-y-2">
                   <p className="mono-label text-blue-200 font-bold tracking-widest text-[10px] uppercase">Event Readiness</p>
-                  <h3 className="text-3xl font-black tracking-tighter">リハーサル（事前確認）</h3>
-                  <p className="text-blue-100 text-sm font-medium opacity-80">全項目をセルフチェックし、本番の準備を万全にします。</p>
+                  <h3 className="text-3xl font-black tracking-tighter">本番前リハーサル</h3>
+                  <p className="text-blue-100 text-sm font-medium opacity-80 decoration-blue-300 underline-offset-4 decoration-2">全項目を順に確認し、トラブルを未然に防ぎます</p>
                 </div>
-                <div className="bg-white/20 p-4 rounded-2xl backdrop-blur-md">
-                  <PlayCircle className="w-8 h-8" />
+                <div className="bg-white/20 p-5 rounded-[28px] backdrop-blur-md shadow-inner group-hover:scale-110 transition-transform">
+                  <PlayCircle className="w-10 h-10" />
                 </div>
               </div>
             </button>
+          </section>
 
-            <button 
-              onClick={() => { setEqType("video"); setView("symptoms"); }}
-              className="group hardware-card p-8 flex items-center gap-8 transition-all active:scale-[0.97] hover:ring-2 hover:ring-blue-500/50 text-left relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl -mr-24 -mt-24 group-hover:bg-blue-600/20 transition-all" />
-              <div className="p-5 bg-blue-600 rounded-xl text-white shadow-lg shadow-blue-500/20 border border-blue-400/30">
-                <Monitor className="w-10 h-10" />
+          {/* Troubleshooting Section */}
+          <section className="space-y-6">
+            <div className="flex items-center justify-between px-2">
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-6 bg-red-500 rounded-full" />
+                <h2 className="text-sm font-black text-slate-400 uppercase tracking-widest">Troubleshooting / 症状から解決</h2>
               </div>
-              <div className="relative z-10">
-                <p className="mono-label text-blue-400 mb-2 font-bold">Visual System</p>
-                <h3 className="font-black text-2xl mb-1 flex items-center gap-2 text-white">
-                  映像・PC接続
-                </h3>
-                <p className="text-sm text-slate-400 font-medium">スクリーン、プロジェクター、PC接続の問題</p>
-              </div>
-              <ChevronRight className="ml-auto opacity-30 group-hover:opacity-100 group-hover:translate-x-2 transition-all text-white" />
-            </button>
+              <span className="text-[10px] font-bold text-red-500/50 italic">何か問題が起きた時はこちら</span>
+            </div>
 
-            <button 
-              onClick={() => { setEqType("audio"); setView("symptoms"); }}
-              className="group hardware-card p-8 flex items-center gap-8 transition-all active:scale-[0.97] hover:ring-2 hover:ring-orange-500/50 text-left relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-orange-600/10 rounded-full blur-3xl -mr-24 -mt-24 group-hover:bg-orange-600/20 transition-all" />
-              <div className="p-5 bg-orange-600 rounded-xl text-white shadow-lg shadow-orange-500/20 border border-orange-400/30">
-                <Mic className="w-10 h-10" />
-              </div>
-              <div className="relative z-10">
-                <p className="mono-label text-orange-400 mb-2 font-bold">Audio System</p>
-                <h3 className="font-black text-2xl mb-1 flex items-center gap-2 text-white">
-                  マイク・音響
-                </h3>
-                <p className="text-sm text-slate-400 font-medium">音声出力、ノイズ、マイク入力の問題</p>
-              </div>
-              <ChevronRight className="ml-auto opacity-30 group-hover:opacity-100 group-hover:translate-x-2 transition-all text-white" />
-            </button>
-          </div>
+            <div className="grid grid-cols-1 gap-6">
+              <button 
+                onClick={() => { setEqType("video"); setView("symptoms"); }}
+                className="group hardware-card p-8 flex items-center gap-8 transition-all active:scale-[0.97] hover:ring-2 hover:ring-red-500/30 text-left relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-48 h-48 bg-red-600/10 rounded-full blur-3xl -mr-24 -mt-24 group-hover:bg-red-600/20 transition-all opacity-0 group-hover:opacity-100" />
+                <div className="p-5 bg-red-600 rounded-xl text-white shadow-lg shadow-red-500/20 border border-red-400/30 group-hover:scale-105 transition-transform">
+                  <Monitor className="w-10 h-10" />
+                </div>
+                <div className="relative z-10">
+                  <p className="mono-label text-red-400 mb-2 font-bold tracking-widest text-[9px] uppercase">Visual Troubles</p>
+                  <h3 className="font-black text-2xl mb-1 flex items-center gap-2 text-white">
+                    映像が映らない場合
+                  </h3>
+                  <p className="text-sm text-slate-400 font-medium">プロジェクター・スイッチャーの不具合はこちら</p>
+                </div>
+                <ChevronRight className="ml-auto opacity-30 group-hover:opacity-100 group-hover:translate-x-2 transition-all text-white" />
+              </button>
+
+              <button 
+                onClick={() => { setEqType("audio"); setView("symptoms"); }}
+                className="group hardware-card p-8 flex items-center gap-8 transition-all active:scale-[0.97] hover:ring-2 hover:ring-orange-500/30 text-left relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-48 h-48 bg-orange-600/10 rounded-full blur-3xl -mr-24 -mt-24 group-hover:bg-orange-600/20 transition-all opacity-0 group-hover:opacity-100" />
+                <div className="p-5 bg-orange-600 rounded-xl text-white shadow-lg shadow-orange-500/20 border border-orange-400/30 group-hover:scale-105 transition-transform">
+                  <Mic className="w-10 h-10" />
+                </div>
+                <div className="relative z-10">
+                  <p className="mono-label text-orange-400 mb-2 font-bold tracking-widest text-[9px] uppercase">Audio Troubles</p>
+                  <h3 className="font-black text-2xl mb-1 flex items-center gap-2 text-white">
+                    音が出ない・鳴らない
+                  </h3>
+                  <p className="text-sm text-slate-400 font-medium">マイク・PC音声・ミキサーの不具合はこちら</p>
+                </div>
+                <ChevronRight className="ml-auto opacity-30 group-hover:opacity-100 group-hover:translate-x-2 transition-all text-white" />
+              </button>
+            </div>
+          </section>
 
           <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700 flex gap-5 shadow-inner relative overflow-hidden">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600" />
             <div className="p-3 bg-blue-600/20 rounded-xl shrink-0 border border-blue-600/30">
-              <Info className="w-6 h-6 text-blue-400" />
+              <Sparkles className="w-6 h-6 text-blue-400" />
             </div>
             <div>
-              <p className="text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest">Protocol Instruction</p>
-              <p className="text-sm text-slate-300 leading-relaxed font-medium">解決した場合は、改善データ集計のため「解決した」ボタンで報告をお願いします。</p>
+              <p className="text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest leading-none">Smart Assistant</p>
+              <button 
+                onClick={() => setIsAiOpen(true)}
+                className="text-left group"
+              >
+                <p className="text-sm text-slate-300 leading-relaxed font-medium group-hover:text-blue-400 transition-colors">
+                  どこに分類されるかわからない場合は、<span className="underline underline-offset-4 decoration-blue-500/30">AIに症状を相談</span>してください。
+                </p>
+              </button>
             </div>
           </div>
         </div>
