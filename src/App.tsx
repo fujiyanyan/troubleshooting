@@ -44,6 +44,8 @@ const IMG2 = "/adapter_properties.png";
 const IMG3 = "/mode_selection.png";
 const IMG4 = "/switcher_photo.png";
 const IMG5 = "/mixer_knobs.png"; // For audio knobs reference
+const IMG6 = "/mic_body.png";   // For mic lamp check
+const IMG7 = "/mac_sound.png";  // For mac sound settings
 
 // --- Visual Components ---
 // --- Mockup Components ---
@@ -241,68 +243,250 @@ const SwitcherMockup = ({ highlight }: { highlight?: "power" | "projector" | "hd
         <div className="col-span-3">
           <div className="bg-[#3e5c76] text-white text-[7px] px-2 py-0.5 font-bold mb-1 w-full text-center">PinP</div>
           <div className="flex flex-col h-[70px] border-2 border-[#1d3557] rounded-sm overflow-hidden text-[#1d3557]">
-            <div className="flex-1 bg-white flex items-center justify-center text-[7px] font-black text-center p-0.5 border-b border-[#1d3557]">表示切替</div>
-            <div className="h-10 bg-[#1d3557] text-white flex items-center justify-center text-[7px] font-black text-center p-0.5">2画面表示</div>
+            <span>解除</span>
           </div>
         </div>
-      </div>
-
-      <div className="mt-2 flex justify-end">
-        <span className="text-[7px] font-bold opacity-40 uppercase tracking-widest">抗菌シート</span>
       </div>
     </div>
   </div>
 );
 
-const MixerMockup = () => (
-  <div className="w-full max-w-[320px] mx-auto bg-[#cdd4da] p-5 rounded-2xl border-t-8 border-[#adb5bd] shadow-2xl relative font-sans text-slate-700 overflow-hidden">
-    <div className="space-y-4">
-      {/* PC AUDIO Section */}
-      <div className="bg-[#dee4e9] p-4 rounded-xl border border-slate-300 shadow-sm relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500 opacity-50" />
-        <p className="text-[11px] font-black text-slate-600 mb-3 border-b border-slate-300 pb-1.5 flex justify-between">
-          <span>PC AUDIO (最優先)</span>
-          <span className="text-[8px] font-bold opacity-30 tracking-widest uppercase">7 / 8 CH</span>
-        </p>
-        <div className="flex flex-col items-center gap-2">
-          <div className="w-14 h-14 rounded-full bg-[#f8f9fa] border-4 border-slate-300 flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05),0_4px_10px_rgba(0,0,0,0.1)] relative group cursor-pointer hover:border-blue-400 transition-all active:scale-95 active:rotate-12">
-            <div className="w-1 h-5 bg-red-500 absolute top-0.5 -rotate-12 rounded-full shadow-sm" />
-            <div className="w-2 h-2 rounded-full bg-slate-300 shadow-inner" />
-            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-white shadow-[0_0_5px_rgba(34,197,94,0.5)]" />
+const MixerMockup = ({ highlight }: { highlight?: "pc-audio" | "mic-gain" }) => (
+  <div className="w-full max-w-[360px] mx-auto bg-[#eaddd0] rounded-lg shadow-2xl relative font-sans overflow-hidden border-2 border-[#b8b0a8]">
+    {/* Rack Unit Mounting Holes */}
+    <div className="absolute left-1 top-0 bottom-0 w-4 flex flex-col justify-around py-4 opacity-30">
+      <div className="w-2.5 h-2.5 rounded-full bg-slate-400 shadow-inner" />
+      <div className="w-2.5 h-2.5 rounded-full bg-slate-400 shadow-inner" />
+    </div>
+    <div className="absolute right-1 top-0 bottom-0 w-4 flex flex-col justify-around py-4 opacity-30">
+      <div className="w-2.5 h-2.5 rounded-full bg-slate-400 shadow-inner" />
+      <div className="w-2.5 h-2.5 rounded-full bg-slate-400 shadow-inner" />
+    </div>
+
+    {highlight === "pc-audio" ? (
+      /* RAMSA / Analog Mixer Section for PC Audio */
+      <div className="bg-[#343a40] p-6 text-slate-300 min-h-[300px] flex flex-col justify-center">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/brushed-alum.png')] pointer-events-none" />
+        <div className="relative z-10">
+          <div className="flex justify-between items-center mb-8">
+            <span className="text-[12px] font-black text-slate-500 tracking-widest bg-red-900/20 px-2 py-0.5 rounded border border-red-500/20">RAMSA</span>
+            <span className="text-[8px] font-mono opacity-50 uppercase tracking-widest">MASTER OUTPUT</span>
           </div>
-          <p className="text-[10px] font-black text-slate-500 tracking-tight">PC音声</p>
+          
+          <div className="flex flex-col items-center gap-4">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-black/60 rounded-full blur-xl transform translate-y-2 scale-90" />
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#495057] to-[#1a1c1e] border-4 border-blue-400 flex items-center justify-center shadow-2xl relative rotate-45 ring-8 ring-blue-500/5">
+                <div className="w-2 h-10 bg-red-600 absolute top-2 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.5)]" />
+                <div className="w-6 h-6 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center shadow-inner">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 text-center">
+              <span className="text-[14px] font-black tracking-[0.2em] uppercase text-blue-400 drop-shadow-sm">PC 音声</span>
+              <p className="text-[9px] text-slate-500 mt-2 font-bold uppercase tracking-widest">CH 7/8 Stereo Input</p>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Mic Gains Section */}
-      <div className="bg-[#dee4e9] p-4 rounded-xl border border-slate-300 shadow-sm">
-        <p className="text-[11px] font-black text-slate-600 mb-3 border-b border-slate-300 pb-1.5 flex justify-between">
-          <span>MIC GAIN CONTROLS</span>
-          <span className="text-[8px] font-bold opacity-30 tracking-widest uppercase">1 - 4 CH</span>
-        </p>
-        <div className="grid grid-cols-4 gap-2">
-          {[1, 2, 3, 4].map(i => (
-            <div key={i} className="flex flex-col items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-white border-2 border-slate-300 flex items-center justify-center relative shadow-[0_4px_6px_rgba(0,0,0,0.05),inset_0_-2px_2px_rgba(0,0,0,0.05)] group cursor-pointer hover:border-blue-400 transition-all active:rotate-45 active:scale-95">
-                <div className="w-0.5 h-3 bg-slate-800 absolute top-0 rounded-full" />
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-100 shadow-inner" />
+    ) : (
+      /* Panasonic Wireless Receiver Section (Replicating user image) */
+      <div className="bg-[#f0f0f0] p-4 min-h-[300px]">
+        {/* Antennas / Brand Section */}
+        <div className="flex justify-between items-start mb-6 px-2">
+          <div className="flex gap-4">
+            <div className="text-[9px] font-black text-slate-600 space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="w-2">1</span>
+                <div className="w-3.5 h-1.5 bg-green-500 rounded-sm shadow-[0_0_4px_#22c55e]" />
               </div>
-              <p className="text-[8px] font-black text-slate-500 uppercase leading-none tracking-tighter">Gain {i}</p>
+              <div className="flex items-center gap-2 text-slate-400">
+                <span className="w-2">2</span>
+                <div className="w-3.5 h-1.5 bg-slate-400 rounded-sm" />
+              </div>
+              <p className="text-[7px] mt-1">アンテナ</p>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-[8px] font-black text-slate-400 uppercase tracking-tighter italic">Panasonic</p>
+            <p className="text-[7px] font-bold text-slate-500">WX-SR204</p>
+          </div>
+        </div>
+
+        {/* 4 Channels Grid - Replicating the "4 knobs + 5-step LED" layout */}
+        <div className="grid grid-cols-4 gap-2 px-1">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="flex flex-col items-center">
+               <div className="text-[7px] font-bold text-slate-500 mb-1.5 font-mono tracking-tighter">CH {i}</div>
+               
+               <div className="flex items-start gap-1 justify-center w-full">
+                 {/* 5-step Received Level LEDs */}
+                 <div className="flex flex-col gap-0.5 pt-0.5">
+                    {[...Array(5)].map((_, step) => (
+                      <div 
+                        key={step} 
+                        className={`w-2 h-1.5 rounded-[1px] ${
+                          (i === 1 && step >= 1) || (i !== 1 && step >= 4) // Sample active levels
+                          ? "bg-green-500 shadow-[0_0_2px_#22c55e]" 
+                          : "bg-slate-300"
+                        }`} 
+                      />
+                    ))}
+                    <span className="text-[4px] font-black text-slate-400 mt-1 uppercase text-center leading-none">受信<br/>Lvl</span>
+                 </div>
+
+                 {/* The Knob */}
+                 <div className="relative group/knob">
+                   <div className={`w-14 h-14 rounded-full bg-white border-2 flex items-center justify-center shadow-lg transition-all ${highlight === "mic-gain" ? "border-orange-400 ring-2 ring-orange-500/20 scale-105" : "border-slate-300"}`}>
+                     {/* Scale markings on the knob border */}
+                     <div className="absolute inset-0 rounded-full border border-slate-100" />
+                     {/* Notch on the knob */}
+                     <div className="absolute w-1 h-4 bg-slate-800 top-1 rounded-full transform rotate-[-45deg]" />
+                     {/* Center detail */}
+                     <div className="w-5 h-5 rounded-full bg-slate-100 border border-slate-200 shadow-inner" />
+                   </div>
+                   {/* 0-10 Scale */}
+                   <div className="absolute -bottom-1 left-0 right-0 flex justify-between text-[5px] font-bold text-slate-400 px-1.5">
+                     <span>0</span>
+                     <span>10</span>
+                   </div>
+                 </div>
+               </div>
+               
+               <p className="text-[7px] font-black text-slate-600 mt-3">音量</p>
             </div>
           ))}
         </div>
-        <div className="mt-4 pt-2 border-t border-slate-300 text-center">
-          <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none">下側の白いつまみ</p>
+      </div>
+    )}
+  </div>
+);
+
+const MicBodyMockup = ({ state }: { state?: "ok" | "low" | "error" }) => (
+  <div className="w-full max-w-[280px] mx-auto bg-slate-50 p-6 rounded-2xl flex flex-col items-center gap-6 shadow-lg border border-slate-200">
+    <div className="relative">
+      {/* Panasonic WX-ST250 Body */}
+      <div className="w-24 h-64 bg-[#1a1a1a] rounded-[48px] border-4 border-slate-800 shadow-2xl relative flex flex-col items-center pt-10 overflow-hidden">
+        {/* Top Grill Simulation (Hidden but implied) */}
+        <div className="absolute top-0 w-full h-8 bg-slate-900 border-b border-white/5" />
+
+        {/* Brand & Model */}
+        <div className="text-center mb-6 space-y-0.5">
+          <p className="text-white text-[12px] font-black tracking-tight leading-none uppercase">Panasonic</p>
+          <p className="text-slate-400 text-[8px] font-bold tracking-widest leading-none">WX-ST250</p>
         </div>
+
+        {/* Indicator & Switch Panel */}
+        <div className="w-[70px] h-[120px] bg-[#121212] rounded-2xl border border-white/10 shadow-inner p-3 flex flex-col items-center">
+           {/* LCD/Label Area */}
+           <div className="grid grid-cols-2 gap-4 mb-4 border-b border-white/5 pb-3 w-full">
+             <div className="flex flex-col items-center gap-1">
+               <span className="text-[7px] font-bold text-slate-500">電源</span>
+               <div className={`w-3.5 h-3.5 rounded-full border border-black/40 transition-all ${
+                 state === "error" ? "bg-red-500 shadow-[0_0_8px_#ef4444]" : "bg-green-500 shadow-[0_0_10px_#22c55e]"
+               }`} />
+             </div>
+             <div className="flex flex-col items-center gap-1">
+               <span className="text-[7px] font-bold text-slate-500">充電</span>
+               <div className={`w-3.5 h-3.5 rounded-full border border-black/40 ${
+                 state === "low" ? "bg-orange-500 shadow-[0_0_8px_#f97316]" : "bg-slate-700"
+               }`} />
+             </div>
+           </div>
+
+           {/* The Large Slide Switch */}
+           <div className="relative mt-2 flex flex-col items-center">
+             <div className="text-[8px] font-black text-slate-400 mb-1 uppercase tracking-tighter">入</div>
+             <div className="w-9 h-14 bg-[#080808] rounded-md border border-white/5 flex flex-col items-center py-1">
+                <div className={`w-7 h-9 bg-slate-800 rounded border border-slate-600 shadow-md transition-all flex flex-col items-center justify-around py-1 ${
+                  state === "ok" ? "-translate-y-1" : "translate-y-2 opacity-50"
+                 }`}>
+                  <div className="w-4 h-0.5 bg-slate-900 rounded-full opacity-30" />
+                  <div className="w-4 h-0.5 bg-slate-900 rounded-full opacity-30" />
+                  <div className="w-4 h-0.5 bg-slate-900 rounded-full opacity-30" />
+                </div>
+             </div>
+             <div className="flex items-center gap-3 mt-1.5 opacity-40">
+                <span className="text-[6px] text-slate-600 font-black">切</span>
+                <span className="text-[6px] text-slate-600 font-black py-0.5 px-1 border border-slate-600/50 rounded-sm">ロック</span>
+             </div>
+           </div>
+        </div>
+
+        {/* Shine effects */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+        <div className="absolute bottom-[-10px] w-full h-24 bg-gradient-to-t from-black to-transparent opacity-60" />
       </div>
     </div>
-    
-    <div className="mt-5 pt-3 border-t border-slate-400 flex justify-between items-center px-1">
-      <div className="flex items-center gap-1.5">
-        <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
-        <span className="text-[7px] font-black text-slate-500 uppercase tracking-tighter">System Power</span>
+
+    <div className="text-center space-y-1.5">
+      <p className="text-[11px] font-black text-slate-500 uppercase tracking-widest">ワイヤレスマイク状態確認</p>
+      <div className="flex flex-col items-center gap-1 mt-2">
+        <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${
+          state === "ok" ? "bg-green-100 text-green-700" : 
+          "bg-red-100 text-red-700 animate-pulse border border-red-200"
+        }`}>
+          {state === "ok" ? "正常" : state === "low" ? "充電中/残量少" : "異常（点滅）"}
+        </span>
+        {state === "error" && (
+          <p className="text-[9px] font-bold text-red-600 animate-bounce mt-1">
+            点滅の場合は使用しないでください
+          </p>
+        )}
       </div>
-      <p className="text-[9px] font-black text-slate-500 tracking-tighter opacity-40 italic">MA SERIES HYBRID MIXER</p>
+    </div>
+  </div>
+);
+
+const MacSoundSettingsMockup = ({ target }: { target: "AppleTV" | "FDWX" }) => (
+  <div className="w-full max-w-[300px] mx-auto bg-[#ececec] rounded-xl border border-[#d1d1d1] shadow-xl overflow-hidden font-sans text-slate-800">
+    <div className="bg-[#f6f6f6] px-4 py-2 border-b border-slate-300 flex items-center justify-between">
+      <div className="flex items-center gap-2">
+        <div className="w-3 h-3 rounded-full bg-red-400" />
+        <div className="w-3 h-3 rounded-full bg-yellow-400" />
+        <div className="w-3 h-3 rounded-full bg-green-400" />
+      </div>
+      <span className="text-[10px] font-bold text-slate-500">サウンド</span>
+      <div className="w-8" />
+    </div>
+    <div className="p-4 space-y-4">
+      <div className="flex gap-4 border-b border-slate-200 pb-2 text-[10px] font-bold">
+        <span className="text-blue-600 border-b-2 border-blue-600 pb-2">出力</span>
+        <span className="text-slate-400">入力</span>
+        <span className="text-slate-400">サウンドエフェクト</span>
+      </div>
+      <div className="space-y-1">
+        <p className="text-[9px] font-bold text-slate-500 mb-2">サウンドを出力する装置を選択:</p>
+        <div className="border border-slate-300 rounded overflow-hidden bg-white">
+          {[
+            { name: "内蔵スピーカー", type: "内蔵" },
+            { name: "Theater AppleTV", type: "AirPlay", id: "AppleTV" },
+            { name: "FDWX1905W", type: "DisplayPort", id: "FDWX" }
+          ].map((device, i) => (
+            <div 
+              key={i} 
+              className={`px-3 py-1.5 flex justify-between items-center text-[10px] border-b border-slate-100 last:border-0 ${target === device.id ? "bg-blue-600 text-white font-bold" : "text-slate-700"}`}
+            >
+              <span>{device.name}</span>
+              <span className={`text-[8px] opacity-60 ${target === device.id ? "text-blue-100" : ""}`}>{device.type}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="bg-slate-100 p-3 rounded border border-slate-200">
+        <div className="flex justify-between items-center mb-1">
+          <span className="text-[9px] font-bold">主音量:</span>
+          <div className="w-40 h-1.5 bg-slate-300 rounded-full relative">
+            <div className="absolute left-0 top-0 h-full w-[80%] bg-slate-500 rounded-full" />
+            <div className="absolute left-[80%] top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white border border-slate-400 rounded-full shadow-sm" />
+          </div>
+        </div>
+        <div className="flex items-center gap-2 text-[9px] text-slate-500">
+          <input type="checkbox" checked readOnly className="rounded-sm" />
+          <span>メニューバーに音量を表示</span>
+        </div>
+      </div>
     </div>
   </div>
 );
@@ -315,6 +499,8 @@ const StepImage = ({ type, alt, highlight }: { type: string, alt: string, highli
       case "IMG3": return IMG3;
       case "IMG4": return IMG4;
       case "IMG5": return IMG5;
+      case "IMG6": return IMG6;
+      case "IMG7": return IMG7;
       default: return "";
     }
   };
@@ -328,7 +514,9 @@ const StepImage = ({ type, alt, highlight }: { type: string, alt: string, highli
       case "IMG2": return <WindowsSettingsMockup screen="properties" />;
       case "IMG3": return <WindowsSettingsMockup screen="modes" />;
       case "IMG4": return <SwitcherMockup highlight={highlight} />;
-      case "IMG5": return <MixerMockup />;
+      case "IMG5": return <MixerMockup highlight={highlight} />;
+      case "IMG6": return <MicBodyMockup state={highlight} />;
+      case "IMG7": return <MacSoundSettingsMockup target={highlight || "AppleTV"} />;
       default: return <Monitor className="w-12 h-12 text-gray-400" />;
     }
   };
@@ -484,37 +672,91 @@ const VIDEO_SYMPTOMS = [
   },
 ];
 
+const COMMON_MIC_STEPS = [
+  {
+    txt: "PCからの音がシアターのスピーカーから流れるか確認",
+    note: "PCで適当な音声を再生し、外部スピーカーから音が出るか確認してください。",
+    imageData: "IMG1",
+    imageAlt: "Windowsサウンド設定 / Macサウンド設定",
+  },
+  {
+    txt: "マイクからの音がシアターのスピーカーから流れるか確認",
+    note: "マイクのスイッチを入れ、声を出しながらスピーカーから拡声されているか確認してください。",
+    imageData: "IMG6",
+    imageAlt: "マイク本体の確認",
+    highlight: "ok"
+  }
+];
+
+const WIN_MIC_STEPS = [
+  {
+    txt: "PCの音声出力先が期待通りになっているか確認",
+    note: "有線接続時は「FDWX1905W」を選択してください。",
+    imageData: "IMG1",
+    imageAlt: "Windows サウンド設定 — FDWX1905W を選択"
+  },
+  { 
+    txt: "音声調整はミキサーの「PC音声」つまみで行う", 
+    note: "PCの音量はRAMSAミキサーの 「PC音声」とラベルされた赤いつまみで調整してください。",
+    imageData: "IMG5",
+    imageAlt: "ミキサー — PC音声つまみ",
+    highlight: "pc-audio"
+  },
+  { 
+    txt: "マイクの音量が小さい場合はレシーバーのゲインのつまみを回す", 
+    note: "Panasonicワイヤレスレシーバーの各チャンネルにある音量つまみ（4つ並んでいるもの）で調整してください。注意：大きくしすぎるとマイク同士のハウリングになるので注意",
+    imageData: "IMG5",
+    imageAlt: "ワイヤレスレシーバー — 音量つまみ",
+    highlight: "mic-gain"
+  },
+  { 
+    txt: "マイク本体のスイッチと電池を確認", 
+    note: "マイク本体のスイッチを「入」にし、ランプが赤く点滅していないか確認してください。点滅の場合は使用しないでください。",
+    imageData: "IMG6",
+    imageAlt: "マイク本体の電池・ランプ確認",
+    highlight: "error"
+  },
+];
+
+const MAC_MIC_STEPS = [
+  {
+    txt: "PCの音声出力先がtheaterのスピーカーになっているか確認",
+    note: "無線投影時は「Theater AppleTV」、有線時は「FDWX1905W」を選択してください。",
+    imageData: "IMG7",
+    imageAlt: "Mac サウンド設定 — 出力先の選択",
+    highlight: "AppleTV"
+  },
+  { 
+    txt: "音声調整はミキサーの「PC音声」つまみで行う", 
+    note: "PCの音量はRAMSAミキサーの「PC音声」とラベルされた赤いつまみで調整してください。",
+    imageData: "IMG5",
+    imageAlt: "ミキサー — PC音声つまみ",
+    highlight: "pc-audio"
+  },
+  { 
+    txt: "マイクの音量が小さい場合はレシーバーのゲインのつまみを回す", 
+    note: "Panasonicワイヤレスレシーバーの各チャンネルにある音量つまみ（4つ並んでいるもの）で調整してください。注意：大きくしすぎるとマイク同士のハウリングになるので注意",
+    imageData: "IMG5",
+    imageAlt: "ワイヤレスレシーバー — 音量つまみ",
+    highlight: "mic-gain"
+  },
+  { 
+    txt: "マイク本体のスイッチと電池を確認", 
+    note: "マイク本体のスイッチを「入」にし、ランプが赤く点滅していないか確認してください。点滅の場合は使用しないでください。",
+    imageData: "IMG6",
+    imageAlt: "マイク本体の電池・ランプ確認",
+    highlight: "error"
+  },
+];
+
+const MIC_ESC = [
+  { icon: <Mic className="w-5 h-5" />, txt: "予備マイク（有線等）を使用", sub: "演台内またはラック内を確認" },
+];
+
 const MIC_SYMPTOMS = [
   {
     id: "m1", icon: <Mic className="w-6 h-6" />, txt: "マイク・PCから音が出ない (シアター)",
-    steps: [
-      {
-        txt: "サウンド出力先がシアターのスピーカーになっているか確認",
-        note: "Windowsの場合は「FDWX1905W」、Macの場合は「Theater AppleTV」(無線)または「FDWX1905W」(有線)が選択されているか確認してください。",
-        imageData: "IMG1",
-        imageAlt: "サウンド設定 — 出力デバイスの選択"
-      },
-      { 
-        txt: "音声調整はミキサー（ラック内）の「PC音声」つまみで行う", 
-        note: "PCの音量は赤いつまみの隣にある「PC音声」とラベルされたつまみを回してください。それ以外のスイッチは触らないでください。",
-        imageData: "IMG5",
-        imageAlt: "シアター音響ミキサー — PC音声つまみ"
-      },
-      { 
-        txt: "マイクの音量が小さい場合は「下の白いつまみ」を回す", 
-        note: "各マイクに対応したチャンネルの下側にある白いつまみ（ゲイン）で調整してください。",
-        imageData: "IMG5",
-        imageAlt: "ミキサー下部 — 白いマイクつまみ"
-      },
-      { 
-        txt: "マイク本体のスイッチと電池を確認", 
-        note: "マイク側面のスイッチをONにし、液晶画面に電池マークが表示されているか確認してください。また、マイク本体のランプが赤く点滅していないか（電池切れのサイン）を確認し、残量が少ない場合は予備と交換します。",
-        imageAlt: "マイク本体の電池・スイッチ・ランプ確認"
-      },
-    ],
-    esc: [
-      { icon: <Mic className="w-5 h-5" />, txt: "予備マイク（有線等）を使用", sub: "演台内またはラック内を確認" },
-    ],
+    osSelect: true,
   },
 ];
 
@@ -621,17 +863,18 @@ export default function App() {
       title: "PC音声つまみ",
       check: "ミキサーの「PC音声」つまみが上がっていますか？",
       description: "赤いつまみの右隣、ラベルがある箇所を確認してください。",
-      solution: MIC_SYMPTOMS[0].steps[1],
+      solution: WIN_MIC_STEPS[1],
       imageData: "IMG5",
-      imageAlt: "PC音声つまみ"
+      imageAlt: "PC音声つまみ",
+      highlight: "pc-audio"
     },
     {
       os: "win",
       category: "Audio System",
       title: "PC音声出力先確認 (Win)",
-      check: "PCの音声出力先が「FDWX1905W」になっていますか？",
+      check: "PCの音声出力先がtheaterのスピーカーになっていますか？",
       description: "PC側のサウンド設定から、出力先が外部モニター「FDWX1905W」になっていることを確認してください。",
-      solution: MIC_SYMPTOMS[0].steps[0],
+      solution: WIN_MIC_STEPS[0],
       imageData: "IMG1",
       imageAlt: "Windows 出力デバイスの確認"
     },
@@ -639,41 +882,46 @@ export default function App() {
       os: "mac",
       category: "Audio System",
       title: "PC音声出力先確認 (Mac)",
-      check: "PCの音声出力先がシアターのスピーカーになっていますか？",
+      check: "PCの音声出力先がtheaterのスピーカーになっていますか？",
       description: "Macのサウンド設定から、無線投影時は「Theater AppleTV」、有線接続時は「FDWX1905W」を選択してください。",
-      solution: MIC_SYMPTOMS[0].steps[0],
-      imageAlt: "Mac 出力デバイスの確認"
+      solution: MAC_MIC_STEPS[0],
+      imageData: "IMG7",
+      imageAlt: "Mac 出力デバイスの確認",
+      highlight: "AppleTV"
     },
     {
       category: "Audio Test",
       title: "PC音声出力テスト",
       check: "PCからの音がスピーカーから流れますか？",
       description: "適当な動画や音声を再生して、シアター内のスピーカーから音が出るか確認してください。",
-      solution: MIC_SYMPTOMS[0].steps[1]
+      solution: WIN_MIC_STEPS[1]
     },
     {
       category: "Audio System",
       title: "マイク入力（ゲイン）",
       check: "マイクの「白いつまみ」は調整されていますか？",
       description: "各チャンネルの下側にある白いツマミで入力感度を調整します。",
-      solution: MIC_SYMPTOMS[0].steps[2],
+      solution: WIN_MIC_STEPS[2],
       imageData: "IMG5",
-      imageAlt: "マイクゲインつまみ"
+      imageAlt: "マイクゲインつまみ",
+      highlight: "mic-gain"
     },
     {
       category: "Audio Test",
       title: "マイク音声出力テスト",
       check: "マイクの音がスピーカーから流れますか？",
       description: "実際に声を出してみて、スピーカーから拡声されているか確認してください。",
-      solution: MIC_SYMPTOMS[0].steps[2]
+      solution: WIN_MIC_STEPS[2]
     },
     {
       category: "Audio System",
       title: "ワイヤレスマイク電池",
       check: "マイクの電池残量は十分ですか？",
-      description: "液晶の電池マークを確認してください。また、マイク本体のランプが赤く点滅していないか確認してください。",
-      solution: MIC_SYMPTOMS[0].steps[3],
-      imageAlt: "マイク本体の電池・ランプ確認"
+      description: "マイク本体のランプが赤く点滅していないか確認してください。点滅の場合は使用しないでください。",
+      solution: WIN_MIC_STEPS[3],
+      imageData: "IMG6",
+      imageAlt: "マイク本体の電池・ランプ確認",
+      highlight: "low"
     }
   ];
 
@@ -689,7 +937,7 @@ export default function App() {
   // Logic Helpers
   const isCommonFinished = () => {
     if (!selectedSymptom?.osSelect) return true;
-    const commonStepCount = COMMON_FIRST_STEPS.length;
+    const commonStepCount = eqType === "video" ? COMMON_FIRST_STEPS.length : COMMON_MIC_STEPS.length;
     for (let i = 0; i < commonStepCount; i++) {
       if (!checkedSteps[i]) return false;
     }
@@ -699,9 +947,10 @@ export default function App() {
   const getCurrentSteps = () => {
     if (!selectedSymptom) return [];
     if (selectedSymptom.osSelect) {
-      if (!isCommonFinished()) return COMMON_FIRST_STEPS;
+      if (!isCommonFinished()) return eqType === "video" ? COMMON_FIRST_STEPS : COMMON_MIC_STEPS;
       if (!selectedOS) return []; // Waiting for OS selection
-      return selectedOS === "win" ? WIN_STEPS : MAC_STEPS;
+      if (eqType === "video") return selectedOS === "win" ? WIN_STEPS : MAC_STEPS;
+      return selectedOS === "win" ? WIN_MIC_STEPS : MAC_MIC_STEPS;
     }
     return selectedSymptom.steps || [];
   };
@@ -710,7 +959,8 @@ export default function App() {
     if (!selectedSymptom) return [];
     if (selectedSymptom.osSelect) {
       if (!selectedOS) return [];
-      return selectedOS === "win" ? WIN_ESC : MAC_ESC;
+      if (eqType === "video") return selectedOS === "win" ? WIN_ESC : MAC_ESC;
+      return MIC_ESC;
     }
     return selectedSymptom.esc || [];
   };
@@ -718,7 +968,8 @@ export default function App() {
   const handleSymptomClick = (sym: any) => {
     setSelectedSymptom(sym);
     if (sym.osSelect) {
-      setCheckedSteps(new Array(COMMON_FIRST_STEPS.length + Math.max(WIN_STEPS.length, MAC_STEPS.length)).fill(false));
+      const commonLen = eqType === "video" ? COMMON_FIRST_STEPS.length : COMMON_MIC_STEPS.length;
+      setCheckedSteps(new Array(commonLen + Math.max(WIN_STEPS.length, MAC_STEPS.length, WIN_MIC_STEPS.length, MAC_MIC_STEPS.length)).fill(false));
     } else {
       setCheckedSteps(new Array(sym.steps.length).fill(false));
     }
@@ -727,8 +978,6 @@ export default function App() {
 
   const handleOSSelect = (os: OS) => {
     setSelectedOS(os);
-    // Keep the common steps checked, reset or adjust the rest if needed
-    // But we already have a long enough checkedSteps array
   };
 
   const saveLog = (result: "resolved" | "escalated", userNotes?: string) => {
@@ -843,6 +1092,10 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
       return next;
     });
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [rehearsalStep, view]);
 
   useEffect(() => {
     if (chatScrollRef.current) {
@@ -1379,7 +1632,7 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
                         ) : (
                           <>
                             <span className="text-xl font-black text-slate-800">
-                              {(i + 1 + (commonFinished && selectedSymptom.osSelect ? COMMON_FIRST_STEPS.length : 0))}
+                              {(i + 1 + (commonFinished && selectedSymptom.osSelect ? (eqType === "video" ? COMMON_FIRST_STEPS.length : COMMON_MIC_STEPS.length) : 0))}
                             </span>
                             <span className="text-[8px] font-black text-blue-500 uppercase leading-none mt-0.5">CHECK</span>
                           </>
