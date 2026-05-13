@@ -218,7 +218,7 @@ const SwitcherMockup = ({ highlight }: { highlight?: "power" | "projector" | "hd
               { n: "未使用" },
               { n: "HDMI4", id: "hdmi4" },
               { n: "RGB" },
-              { n: "ﾌﾞﾗｯｸｱｳﾄ" }
+              { n: "ﾌﾞﾗｯｸｱｳﾄ", id: "blackout" }
             ].map((btn, i) => (
               <div 
                 key={i} 
@@ -242,8 +242,13 @@ const SwitcherMockup = ({ highlight }: { highlight?: "power" | "projector" | "hd
 
         <div className="col-span-3">
           <div className="bg-[#3e5c76] text-white text-[7px] px-2 py-0.5 font-bold mb-1 w-full text-center">PinP</div>
-          <div className="flex flex-col h-[70px] border-2 border-[#1d3557] rounded-sm overflow-hidden text-[#1d3557]">
-            <span>解除</span>
+          <div className="flex flex-col h-[70px] gap-1">
+             <div className="flex-1 bg-white border border-[#1d3557] rounded-sm flex items-center justify-center text-[7px] font-black leading-tight text-center p-0.5">
+               表示<br/>切替
+             </div>
+             <div className={`flex-1 bg-white border border-[#1d3557] rounded-sm flex items-center justify-center text-[7px] font-black leading-tight text-center p-0.5 ${highlight === "hdmi1" ? "border-orange-400 bg-orange-50" : ""}`}>
+               二画面<br/>表示
+             </div>
           </div>
         </div>
       </div>
@@ -573,6 +578,13 @@ const COMMON_FIRST_STEPS = [
     imageData: "IMG4",
     imageAlt: "卓上スイッチャー — HDMI4 接続と選択",
     highlight: "hdmi4"
+  },
+  {
+    txt: "スイッチャーで「ブラックアウト」が押されていないか確認",
+    note: "スイッチャーのボタンのうち「ブラックアウト」が点灯していると映像が遮断されます。他のボタン（HDMI4など）を押して解除してください。",
+    imageData: "IMG4",
+    imageAlt: "スイッチャー — ブラックアウトの確認",
+    highlight: "blackout"
   },
 ];
 
@@ -1115,12 +1127,23 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
         {showBack && (
           <button 
             onClick={() => {
-              if (view === "history" || view === "esc" || view === "rehearsal") {
+              if (view === "rehearsal") {
+                if (showRehearsalSolution) {
+                  setShowRehearsalSolution(false);
+                } else if (rehearsalStep > 0) {
+                  // If we are at the OS selection step (step 2), and going back
+                  if (rehearsalStep === 2 && rehearsalOS) {
+                    setRehearsalOS(null);
+                  } else {
+                    setRehearsalStep(rehearsalStep - 1);
+                  }
+                } else {
+                  setView("home");
+                }
+              } else if (view === "history" || view === "esc") {
                 setView("home");
                 setSelectedOS(null);
                 setSelectedSymptom(null);
-                setRehearsalOS(null);
-                setRehearsalStep(0);
               } else if (view === "steps" && selectedSymptom.osSelect && selectedOS) {
                 setSelectedOS(null);
               } else if (view === "steps") {
