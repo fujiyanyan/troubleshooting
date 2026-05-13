@@ -29,7 +29,8 @@ import {
   MicOff,
   VolumeX,
   PartyPopper,
-  Sparkles
+  Sparkles,
+  PlayCircle
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Markdown from "react-markdown";
@@ -254,36 +255,54 @@ const SwitcherMockup = ({ highlight }: { highlight?: "power" | "projector" | "hd
 );
 
 const MixerMockup = () => (
-  <div className="w-full max-w-[280px] mx-auto bg-slate-300 p-4 rounded-xl border-t-8 border-slate-400 shadow-xl relative font-sans">
+  <div className="w-full max-w-[320px] mx-auto bg-[#cdd4da] p-5 rounded-2xl border-t-8 border-[#adb5bd] shadow-2xl relative font-sans text-slate-700 overflow-hidden">
     <div className="space-y-4">
-      <div className="bg-slate-200 p-3 rounded-lg border border-slate-400">
-        <p className="text-[10px] font-black text-slate-600 mb-2 border-b border-slate-400 pb-1">PC AUDIO (最優先)</p>
-        <div className="flex flex-col items-center gap-1">
-          <div className="w-10 h-10 rounded-full bg-slate-100 border-4 border-slate-400 flex items-center justify-center shadow-inner relative group cursor-pointer hover:border-blue-400 transition-colors">
-            <div className="w-1 h-3 bg-red-500 absolute top-0 -rotate-12 rounded-full" />
-            <div className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+      {/* PC AUDIO Section */}
+      <div className="bg-[#dee4e9] p-4 rounded-xl border border-slate-300 shadow-sm relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 to-indigo-500 opacity-50" />
+        <p className="text-[11px] font-black text-slate-600 mb-3 border-b border-slate-300 pb-1.5 flex justify-between">
+          <span>PC AUDIO (最優先)</span>
+          <span className="text-[8px] font-bold opacity-30 tracking-widest uppercase">7 / 8 CH</span>
+        </p>
+        <div className="flex flex-col items-center gap-2">
+          <div className="w-14 h-14 rounded-full bg-[#f8f9fa] border-4 border-slate-300 flex items-center justify-center shadow-[inset_0_2px_4px_rgba(0,0,0,0.1),0_2px_4px_rgba(0,0,0,0.05),0_4px_10px_rgba(0,0,0,0.1)] relative group cursor-pointer hover:border-blue-400 transition-all active:scale-95 active:rotate-12">
+            <div className="w-1 h-5 bg-red-500 absolute top-0.5 -rotate-12 rounded-full shadow-sm" />
+            <div className="w-2 h-2 rounded-full bg-slate-300 shadow-inner" />
+            <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-green-500 rounded-full border border-white shadow-[0_0_5px_rgba(34,197,94,0.5)]" />
           </div>
-          <p className="text-[9px] font-bold text-slate-500 mt-1">PC音声</p>
+          <p className="text-[10px] font-black text-slate-500 tracking-tight">PC音声</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
-        {[1, 2].map(i => (
-          <div key={i} className="bg-slate-200 p-2 rounded-lg border border-slate-400 flex flex-col items-center">
-            <div className="w-6 h-6 rounded-full bg-white border border-slate-400 flex items-center justify-center relative shadow-sm group cursor-pointer hover:border-red-400 transition-colors">
-              <div className="w-0.5 h-2 bg-slate-800 absolute top-0 rounded-full" />
+      {/* Mic Gains Section */}
+      <div className="bg-[#dee4e9] p-4 rounded-xl border border-slate-300 shadow-sm">
+        <p className="text-[11px] font-black text-slate-600 mb-3 border-b border-slate-300 pb-1.5 flex justify-between">
+          <span>MIC GAIN CONTROLS</span>
+          <span className="text-[8px] font-bold opacity-30 tracking-widest uppercase">1 - 4 CH</span>
+        </p>
+        <div className="grid grid-cols-4 gap-2">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="flex flex-col items-center gap-2">
+              <div className="w-10 h-10 rounded-full bg-white border-2 border-slate-300 flex items-center justify-center relative shadow-[0_4px_6px_rgba(0,0,0,0.05),inset_0_-2px_2px_rgba(0,0,0,0.05)] group cursor-pointer hover:border-blue-400 transition-all active:rotate-45 active:scale-95">
+                <div className="w-0.5 h-3 bg-slate-800 absolute top-0 rounded-full" />
+                <div className="w-1.5 h-1.5 rounded-full bg-slate-100 shadow-inner" />
+              </div>
+              <p className="text-[8px] font-black text-slate-500 uppercase leading-none tracking-tighter">Gain {i}</p>
             </div>
-            <p className="text-[8px] font-bold text-slate-500 mt-1 uppercase">Gain {i}</p>
-            <p className="text-[7px] text-slate-400">下側の白いつまみ</p>
-          </div>
-        ))}
+          ))}
+        </div>
+        <div className="mt-4 pt-2 border-t border-slate-300 text-center">
+          <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest leading-none">下側の白いつまみ</p>
+        </div>
       </div>
     </div>
-    <div className="mt-4 pt-2 border-t border-slate-400">
-      <div className="flex justify-between items-center px-1">
-        <div className="w-2 h-2 rounded-full bg-green-500 shadow-inner" />
-        <p className="text-[8px] font-black text-slate-400 tracking-tighter">MA SERIES MIXER</p>
+    
+    <div className="mt-5 pt-3 border-t border-slate-400 flex justify-between items-center px-1">
+      <div className="flex items-center gap-1.5">
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
+        <span className="text-[7px] font-black text-slate-500 uppercase tracking-tighter">System Power</span>
       </div>
+      <p className="text-[9px] font-black text-slate-500 tracking-tighter opacity-40 italic">MA SERIES HYBRID MIXER</p>
     </div>
   </div>
 );
@@ -323,7 +342,9 @@ const StepImage = ({ type, alt, highlight }: { type: string, alt: string, highli
       </div>
 
       <div className="p-4 bg-slate-100/50">
-        <Mockup />
+        <div>
+          <Mockup />
+        </div>
       </div>
 
       {/* Actual Image Overlay (Shows if file exists in public/) */}
@@ -467,6 +488,12 @@ const MIC_SYMPTOMS = [
   {
     id: "m1", icon: <Mic className="w-6 h-6" />, txt: "マイク・PCから音が出ない (シアター)",
     steps: [
+      {
+        txt: "サウンド出力先がシアターのスピーカーになっているか確認",
+        note: "Windowsの場合は「FDWX1905W」、Macの場合は「Theater AppleTV」(無線)または「FDWX1905W」(有線)が選択されているか確認してください。",
+        imageData: "IMG1",
+        imageAlt: "サウンド設定 — 出力デバイスの選択"
+      },
       { 
         txt: "音声調整はミキサー（ラック内）の「PC音声」つまみで行う", 
         note: "PCの音量は赤いつまみの隣にある「PC音声」とラベルされたつまみを回してください。それ以外のスイッチは触らないでください。",
@@ -479,7 +506,11 @@ const MIC_SYMPTOMS = [
         imageData: "IMG5",
         imageAlt: "ミキサー下部 — 白いマイクつまみ"
       },
-      { txt: "マイク本体のスイッチと電池を確認", note: "シアター備え付けのワイヤレスマイクを使用してください。" },
+      { 
+        txt: "マイク本体のスイッチと電池を確認", 
+        note: "マイク側面のスイッチをONにし、液晶画面に電池マークが表示されているか確認してください。また、マイク本体のランプが赤く点滅していないか（電池切れのサイン）を確認し、残量が少ない場合は予備と交換します。",
+        imageAlt: "マイク本体の電池・スイッチ・ランプ確認"
+      },
     ],
     esc: [
       { icon: <Mic className="w-5 h-5" />, txt: "予備マイク（有線等）を使用", sub: "演台内またはラック内を確認" },
@@ -488,7 +519,7 @@ const MIC_SYMPTOMS = [
 ];
 
 // --- Types ---
-type View = "home" | "symptoms" | "steps" | "esc" | "history";
+type View = "home" | "symptoms" | "steps" | "esc" | "history" | "rehearsal";
 type OS = "win" | "mac" | null;
 
 interface SupportLog {
@@ -517,6 +548,137 @@ export default function App() {
   const [historyLogs, setHistoryLogs] = useState<SupportLog[]>([]);
   const [resolutionInputs, setResolutionInputs] = useState<Record<string, string>>({});
   
+  // Rehearsal Mode State
+  const [rehearsalStep, setRehearsalStep] = useState(0);
+  const [showRehearsalSolution, setShowRehearsalSolution] = useState(false);
+  const [rehearsalOS, setRehearsalOS] = useState<OS>(null);
+  
+  const ALL_REHEARSAL_STEPS = [
+    {
+      category: "Hardware Power",
+      title: "スイッチャー電源",
+      check: "スイッチャー（LMS-GC53U）の電源が入っていますか？",
+      description: "右上の電源ボタン横が赤く点灯しているか確認してください。",
+      solution: COMMON_FIRST_STEPS[0],
+      imageData: "IMG4",
+      imageAlt: "スイッチャーの電源",
+      highlight: "power"
+    },
+    {
+      category: "Hardware Power",
+      title: "プロジェクター電源",
+      check: "プロジェクターが稼働していますか？",
+      description: "左上の「プロジェクター」ボタンが青く点灯しているか確認してください。",
+      solution: COMMON_FIRST_STEPS[1],
+      imageData: "IMG4",
+      imageAlt: "プロジェクターの電源",
+      highlight: "projector"
+    },
+    {
+      os: "win",
+      category: "Video Connection",
+      title: "入力切替 (HDMI4)",
+      check: "「HDMI4」が青く点灯していますか？",
+      description: "Windows PCを有線接続する場合、HDMI4を選択する必要があります。",
+      solution: COMMON_FIRST_STEPS[2],
+      imageData: "IMG4",
+      imageAlt: "HDMI4入力の選択",
+      highlight: "hdmi4"
+    },
+    {
+      os: "win",
+      category: "PC Setup",
+      title: "ディスプレイ認識",
+      check: "PC側で外部ディスプレイ(DWX1905W)を認識していますか？",
+      description: "「設定」→「ディスプレイ」で2枚目のモニターが表示されているか確認してください。",
+      solution: WIN_STEPS[0],
+      imageData: "IMG1",
+      imageAlt: "ディスプレイ設定画面"
+    },
+    {
+      os: "win",
+      category: "PC Setup",
+      title: "リフレッシュレート設定",
+      check: "解像度が 1280x720 (50Hz) に設定されていますか？",
+      description: "50Hzでないと、映像が安定しない場合があります。",
+      solution: WIN_STEPS[2],
+      imageData: "IMG3",
+      imageAlt: "リフレッシュレートの設定"
+    },
+    {
+      os: "mac",
+      category: "Wireless Connection",
+      title: "Apple TV 接続 (HDMI1)",
+      check: "Apple TV（HDMI1）経由でワイヤレス投影できますか？",
+      description: "Macのコントロールセンターから「Theater AppleTV」を選択してください。",
+      solution: MAC_STEPS[0],
+      imageData: "IMG4",
+      imageAlt: "HDMI1 選択",
+      highlight: "hdmi1"
+    },
+    {
+      category: "Audio System",
+      title: "PC音声つまみ",
+      check: "ミキサーの「PC音声」つまみが上がっていますか？",
+      description: "赤いつまみの右隣、ラベルがある箇所を確認してください。",
+      solution: MIC_SYMPTOMS[0].steps[1],
+      imageData: "IMG5",
+      imageAlt: "PC音声つまみ"
+    },
+    {
+      os: "win",
+      category: "Audio System",
+      title: "PC音声出力先確認 (Win)",
+      check: "PCの音声出力先が「FDWX1905W」になっていますか？",
+      description: "PC側のサウンド設定から、出力先が外部モニター「FDWX1905W」になっていることを確認してください。",
+      solution: MIC_SYMPTOMS[0].steps[0],
+      imageData: "IMG1",
+      imageAlt: "Windows 出力デバイスの確認"
+    },
+    {
+      os: "mac",
+      category: "Audio System",
+      title: "PC音声出力先確認 (Mac)",
+      check: "PCの音声出力先がシアターのスピーカーになっていますか？",
+      description: "Macのサウンド設定から、無線投影時は「Theater AppleTV」、有線接続時は「FDWX1905W」を選択してください。",
+      solution: MIC_SYMPTOMS[0].steps[0],
+      imageAlt: "Mac 出力デバイスの確認"
+    },
+    {
+      category: "Audio Test",
+      title: "PC音声出力テスト",
+      check: "PCからの音がスピーカーから流れますか？",
+      description: "適当な動画や音声を再生して、シアター内のスピーカーから音が出るか確認してください。",
+      solution: MIC_SYMPTOMS[0].steps[1]
+    },
+    {
+      category: "Audio System",
+      title: "マイク入力（ゲイン）",
+      check: "マイクの「白いつまみ」は調整されていますか？",
+      description: "各チャンネルの下側にある白いツマミで入力感度を調整します。",
+      solution: MIC_SYMPTOMS[0].steps[2],
+      imageData: "IMG5",
+      imageAlt: "マイクゲインつまみ"
+    },
+    {
+      category: "Audio Test",
+      title: "マイク音声出力テスト",
+      check: "マイクの音がスピーカーから流れますか？",
+      description: "実際に声を出してみて、スピーカーから拡声されているか確認してください。",
+      solution: MIC_SYMPTOMS[0].steps[2]
+    },
+    {
+      category: "Audio System",
+      title: "ワイヤレスマイク電池",
+      check: "マイクの電池残量は十分ですか？",
+      description: "液晶の電池マークを確認してください。また、マイク本体のランプが赤く点滅していないか確認してください。",
+      solution: MIC_SYMPTOMS[0].steps[3],
+      imageAlt: "マイク本体の電池・ランプ確認"
+    }
+  ];
+
+  const REHEARSAL_STEPS = ALL_REHEARSAL_STEPS.filter(s => !s.os || s.os === rehearsalOS);
+
   // AI Chat
   const [isAiOpen, setIsAiOpen] = useState(false);
   const [chatInput, setAiInput] = useState("");
@@ -603,6 +765,25 @@ export default function App() {
     }
   };
 
+  const generateRehearsalReport = () => {
+    const now = new Date();
+    const date = now.toLocaleDateString();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const currentItem = REHEARSAL_STEPS[rehearsalStep];
+    
+    return `@Fujikawa Ryo 藤川瞭(学務/司書/社会)
+【リハーサル トラブル報告】${date} ${time}
+
+■ 項目：${currentItem.title} (${currentItem.category})
+■ 状況：${currentItem.check} に対し「問題あり」
+■ 内容：${currentItem.description}
+
+■ OS：${rehearsalOS?.toUpperCase() || "不明"}
+■ 提示された解決策：${(currentItem.solution as any).txt}
+
+上記を確認・実行しましたが解決できませんでした。`;
+  };
+
   const generateEscText = () => {
     const now = new Date();
     const date = now.toLocaleDateString();
@@ -681,10 +862,12 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
         {showBack && (
           <button 
             onClick={() => {
-              if (view === "history" || view === "esc") {
+              if (view === "history" || view === "esc" || view === "rehearsal") {
                 setView("home");
                 setSelectedOS(null);
                 setSelectedSymptom(null);
+                setRehearsalOS(null);
+                setRehearsalStep(0);
               } else if (view === "steps" && selectedSymptom.osSelect && selectedOS) {
                 setSelectedOS(null);
               } else if (view === "steps") {
@@ -706,7 +889,7 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
       </div>
       <div className="flex items-center gap-3">
         <button 
-          onClick={() => { setView("home"); setSelectedOS(null); setSelectedSymptom(null); setChatMessages([]); }} 
+          onClick={() => { setView("home"); setSelectedOS(null); setSelectedSymptom(null); setChatMessages([]); setRehearsalOS(null); setRehearsalStep(0); }} 
           className="p-2 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 hover:border-slate-500 transition-all active:scale-95"
           title="トップ"
         >
@@ -947,6 +1130,25 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
         <Header showBack={false} />
         <div className="p-8 space-y-10 fade-in max-w-[800px] mx-auto">
           <div className="grid grid-cols-1 gap-6">
+            <button 
+              onClick={() => { setView("rehearsal"); setRehearsalStep(0); setShowRehearsalSolution(false); setRehearsalOS(null); }}
+              className="group relative overflow-hidden p-8 rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-2xl shadow-blue-900/40 border border-white/20 transition-all active:scale-[0.98]"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 -rotate-12 translate-x-4 -translate-y-4">
+                <CheckCircle2 className="w-48 h-48" />
+              </div>
+              <div className="relative z-10 flex items-center justify-between">
+                <div className="text-left space-y-2">
+                  <p className="mono-label text-blue-200 font-bold tracking-widest text-[10px] uppercase">Event Readiness</p>
+                  <h3 className="text-3xl font-black tracking-tighter">リハーサル（事前確認）</h3>
+                  <p className="text-blue-100 text-sm font-medium opacity-80">全項目をセルフチェックし、本番の準備を万全にします。</p>
+                </div>
+                <div className="bg-white/20 p-4 rounded-2xl backdrop-blur-md">
+                  <PlayCircle className="w-8 h-8" />
+                </div>
+              </div>
+            </button>
+
             <button 
               onClick={() => { setEqType("video"); setView("symptoms"); }}
               className="group hardware-card p-8 flex items-center gap-8 transition-all active:scale-[0.97] hover:ring-2 hover:ring-blue-500/50 text-left relative overflow-hidden"
@@ -1399,6 +1601,263 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
             </motion.div>
           )}
         </AnimatePresence>
+      </div>
+    );
+  }
+
+  if (view === "rehearsal") {
+    // OS Selection Step
+    if (rehearsalStep === 2 && !rehearsalOS) {
+      return (
+        <div className="max-w-[800px] mx-auto min-h-screen pb-32 bg-slate-50">
+          <Header />
+          <div className="p-8 space-y-10 fade-in">
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-100 italic">
+                OS Selection
+              </span>
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-4xl font-black text-slate-900 tracking-tighter leading-tight">
+                使用するPCのOSを選択してください
+              </h2>
+              <p className="text-slate-500 text-lg font-medium leading-relaxed">
+                OSによって映像出力の設定手順が異なります。
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-6 pt-8">
+              <button 
+                onClick={() => { setRehearsalOS("win"); window.scrollTo(0, 0); }}
+                className="group relative overflow-hidden p-8 rounded-[40px] bg-white border-2 border-slate-100 shadow-xl transition-all hover:border-blue-500 hover:-translate-y-1 active:scale-[0.98]"
+              >
+                <div className="absolute top-0 right-0 p-4 opacity-5 bg-blue-600 rounded-full translate-x-4 -translate-y-4 w-32 h-32" />
+                <div className="relative z-10 flex flex-col items-center gap-5">
+                   <div className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                      <Monitor className="w-10 h-10" />
+                   </div>
+                   <div className="text-center">
+                     <p className="text-2xl font-black text-slate-900 tracking-tight">Windows</p>
+                     <p className="text-slate-400 text-xs font-bold mt-1">Surface, Let's note, etc.</p>
+                   </div>
+                </div>
+              </button>
+
+              <button 
+                onClick={() => { setRehearsalOS("mac"); window.scrollTo(0, 0); }}
+                className="group relative overflow-hidden p-8 rounded-[40px] bg-white border-2 border-slate-100 shadow-xl transition-all hover:border-slate-400 hover:-translate-y-1 active:scale-[0.98]"
+              >
+                <div className="absolute top-0 right-0 p-4 opacity-5 bg-slate-900 rounded-full translate-x-4 -translate-y-4 w-32 h-32" />
+                <div className="relative z-10 flex flex-col items-center gap-5">
+                   <div className="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center text-white shadow-lg shadow-slate-900/20 group-hover:scale-110 transition-transform">
+                      <Laptop className="w-10 h-10" />
+                   </div>
+                   <div className="text-center">
+                     <p className="text-2xl font-black text-slate-900 tracking-tight">Mac</p>
+                     <p className="text-slate-400 text-xs font-bold mt-1">MacBook Pro / Air</p>
+                   </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const currentItem = REHEARSAL_STEPS[rehearsalStep];
+    const isDone = rehearsalStep >= REHEARSAL_STEPS.length;
+    const progress = (Math.min(rehearsalStep, REHEARSAL_STEPS.length) / REHEARSAL_STEPS.length) * 100;
+
+    if (isDone) {
+      return (
+        <div className="max-w-[700px] mx-auto min-h-screen pb-20 bg-slate-50">
+          <Header />
+          <div className="p-12 text-center space-y-8 fade-in">
+             <div className="w-24 h-24 bg-green-500 rounded-[40px] flex items-center justify-center mx-auto shadow-2xl shadow-green-500/30 scale-110">
+               <CheckCircle2 className="w-14 h-14 text-white" />
+             </div>
+             <div className="space-y-3">
+               <h2 className="text-5xl font-black text-slate-900 tracking-tighter">準備完了！</h2>
+               <p className="text-slate-500 font-medium text-lg">全項目のチェックが完了しました。本番頑張ってください！</p>
+             </div>
+             <div className="pt-10 space-y-4">
+                <button 
+                  onClick={() => setView("home")}
+                  className="w-full bg-slate-900 text-white font-black py-5 rounded-2xl shadow-xl transition-all active:scale-95"
+                >
+                  トップに戻る
+                </button>
+                <button 
+                  onClick={() => window.open("https://kamiyamamarugoto.slack.com/archives/C07S87L5UCR", "_blank")}
+                  className="w-full bg-white border-2 border-slate-200 text-slate-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-50 transition-all"
+                >
+                  <MessageSquare className="w-5 h-5" /> 解決しない場合の問い合わせ先
+                </button>
+             </div>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="max-w-[800px] mx-auto min-h-screen pb-32 bg-slate-50">
+        <Header />
+        
+        {/* Progress Bar */}
+        <div className="h-1.5 w-full bg-slate-200 sticky top-[72px] z-10 shadow-sm">
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            className="h-full bg-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.4)]"
+          />
+        </div>
+
+        <div className="p-8 space-y-6 fade-in">
+          {/* Category Label */}
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full border border-blue-100 italic">
+              Step {rehearsalStep + 1} / {REHEARSAL_STEPS.length}
+            </span>
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">
+              {currentItem.category}
+            </span>
+          </div>
+
+          {!showRehearsalSolution ? (
+            <div className="space-y-6">
+              <div className="space-y-2 text-center">
+                <h2 className="text-2xl font-black text-slate-900 tracking-tighter leading-tight">
+                  {currentItem.check}
+                </h2>
+                <p className="text-slate-500 text-sm font-medium leading-relaxed">
+                  {currentItem.description}
+                </p>
+              </div>
+
+              {(currentItem as any).imageData && (
+                <div className="rounded-3xl overflow-hidden border-2 border-slate-200 shadow-sm">
+                  <StepImage 
+                    type={(currentItem as any).imageData} 
+                    alt={(currentItem as any).imageAlt} 
+                    highlight={(currentItem as any).highlight} 
+                  />
+                </div>
+              )}
+
+              <div className="grid grid-cols-2 gap-5 pt-2">
+                <button 
+                  onClick={() => { setRehearsalStep(rehearsalStep + 1); window.scrollTo(0, 0); }}
+                  className="flex flex-col items-center gap-4 p-8 bg-white border-2 border-slate-100 rounded-[32px] transition-all hover:border-green-500 hover:shadow-2xl hover:-translate-y-1 group"
+                >
+                  <div className="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all shadow-inner">
+                    <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <span className="font-black text-xl text-slate-900 tracking-tight">問題なし</span>
+                </button>
+
+                <button 
+                  onClick={() => setShowRehearsalSolution(true)}
+                  className="flex flex-col items-center gap-4 p-8 bg-white border-2 border-slate-100 rounded-[32px] transition-all hover:border-red-500 hover:shadow-2xl hover:-translate-y-1 group"
+                >
+                  <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center text-red-600 group-hover:bg-red-600 group-hover:text-white transition-all shadow-inner">
+                    <AlertTriangle className="w-8 h-8" />
+                  </div>
+                  <span className="font-black text-xl text-slate-900 tracking-tight">問題あり</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="space-y-4"
+            >
+              <div className="bg-red-50 p-4 rounded-3xl border border-red-100 space-y-1">
+                <div className="flex items-center gap-2 text-red-600 font-black text-[10px] uppercase tracking-widest">
+                  <Wrench className="w-3 h-3" /> Recommended Solution
+                </div>
+                <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                  以下の解決策を実施してください
+                </h3>
+              </div>
+
+              {/* SOLUTION CONTENT (Reusing Step Components) */}
+              <div className="bg-white p-6 rounded-[32px] border border-slate-200 shadow-xl space-y-4">
+                <div className="space-y-2">
+                  <p className="text-lg font-black text-slate-900 leading-tight">
+                    {(currentItem.solution as any).txt}
+                  </p>
+                  <p className="text-slate-600 text-sm font-medium">
+                    {(currentItem.solution as any).note}
+                  </p>
+                </div>
+
+                {(currentItem.solution as any).winSteps && (
+                  <div className="bg-slate-50 p-6 rounded-2xl space-y-3">
+                    {(currentItem.solution as any).winSteps.map((ws: string, idx: number) => (
+                      <div key={idx} className="flex gap-3">
+                        <span className="text-blue-600 font-black shrink-0">{idx + 1}.</span>
+                        <p className="text-sm font-medium text-slate-700">{ws.replace(/^[①-⑩]\s*/, "")}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {(currentItem.solution as any).imageData && (
+                  <StepImage 
+                    type={(currentItem.solution as any).imageData} 
+                    alt={(currentItem.solution as any).imageAlt} 
+                    highlight={(currentItem.solution as any).highlight} 
+                  />
+                )}
+                
+                <button 
+                  onClick={() => {
+                    setShowRehearsalSolution(false);
+                    setRehearsalStep(rehearsalStep + 1);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="w-full bg-blue-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center gap-3"
+                >
+                  <CheckCircle2 className="w-6 h-6" /> 解決したので次へ進む
+                </button>
+
+                <div className="pt-6 border-t border-slate-100 space-y-4">
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      Still not working?
+                    </p>
+                    <h4 className="text-sm font-black text-slate-900">対応依頼メッセージをコピーして報告</h4>
+                  </div>
+                  
+                  <div className="relative group">
+                    <textarea 
+                      className="w-full h-32 bg-slate-50 border-2 border-slate-100 rounded-2xl p-4 text-[11px] font-mono focus:outline-none focus:ring-4 focus:ring-blue-500/5 transition-all shadow-inner"
+                      readOnly
+                      value={generateRehearsalReport()}
+                    />
+                    <button 
+                      onClick={() => {
+                        navigator.clipboard.writeText(generateRehearsalReport());
+                      }}
+                      className="absolute top-2 right-2 bg-slate-900 text-white px-3 py-2 rounded-xl flex items-center gap-2 text-[10px] font-black hover:bg-slate-800 transition-all shadow-lg active:scale-95"
+                    >
+                      <Copy className="w-3 h-3" />
+                      COPY
+                    </button>
+                  </div>
+
+                  <button 
+                    onClick={() => window.open("https://kamiyamamarugoto.slack.com/archives/C07S87L5UCR", "_blank")}
+                    className="w-full bg-slate-50 border-2 border-slate-200 text-slate-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-100 transition-all active:scale-[0.98]"
+                  >
+                    <MessageSquare className="w-5 h-5" /> Slackで問い合わせる
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </div>
       </div>
     );
   }
