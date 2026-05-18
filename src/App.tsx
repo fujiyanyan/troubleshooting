@@ -936,13 +936,6 @@ export default function App() {
 
   const REHEARSAL_STEPS = ALL_REHEARSAL_STEPS.filter(s => !s.os || s.os === rehearsalOS);
 
-  // AI Chat
-  const [isAiOpen, setIsAiOpen] = useState(false);
-  const [chatInput, setAiInput] = useState("");
-  const [chatMessages, setChatMessages] = useState<any[]>([]);
-  const [isTyping, setIsTyping] = useState(false);
-  const chatScrollRef = useRef<HTMLDivElement>(null);
-
   // Logic Helpers
   const isCommonFinished = () => {
     if (!selectedSymptom?.osSelect) return true;
