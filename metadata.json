@@ -1,6 +1,6 @@
 {
   "name": "Theater Troubleshooting",
-  "description": "シアターの映像・音響機材トラブルを自己解決するためのガイドアプリ。ステップバイステップの手順とAI相談機能を搭載。",
+  "description": "シアターの映像・音響機材トラブルを自己解決するためのガイドアプリ。ステップバイステップの手順でトラブルを解決します。",
   "requestFramePermissions": [],
-  "majorCapabilities": []
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
