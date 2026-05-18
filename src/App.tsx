@@ -33,7 +33,6 @@ import {
   MessageSquare
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import Markdown from "react-markdown";
 
 // --- Base64 Images ---
 // The following paths are placeholders. 
