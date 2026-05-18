@@ -29,7 +29,8 @@ import {
   VolumeX,
   PartyPopper,
   Sparkles,
-  PlayCircle
+  PlayCircle,
+  MessageSquare
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Markdown from "react-markdown";
@@ -1054,22 +1055,6 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
 対応をお願いします。`;
   };
 
-  const handleSendMessage = async () => {
-    if (!chatInput.trim()) return;
-    const userMsg = { role: "user", parts: [{ text: chatInput }] };
-    setChatMessages([...chatMessages, userMsg]);
-    setAiInput("");
-    setIsTyping(true);
-
-    const response = await askGemini(chatInput, chatMessages, { 
-      eqType: eqType === "video" ? "映像・PC接続" : "マイク・音響",
-      os: selectedOS || "不明"
-    });
-    const aiMsg = { role: "model", parts: [{ text: response }] };
-    setChatMessages(prev => [...prev, aiMsg]);
-    setIsTyping(false);
-  };
-
   useEffect(() => {
     if (view === "history") {
       const saved = JSON.parse(localStorage.getItem("av_trouble_log") || "[]");
@@ -1096,12 +1081,6 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [rehearsalStep, view]);
-
-  useEffect(() => {
-    if (chatScrollRef.current) {
-      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
-    }
-  }, [chatMessages, isTyping]);
 
   // --- Components ---
   const Header = ({ showBack = true }) => (
@@ -1153,7 +1132,7 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
       </div>
       <div className="flex items-center gap-3">
         <button 
-          onClick={() => { setView("home"); setSelectedOS(null); setSelectedSymptom(null); setChatMessages([]); setRehearsalOS(null); setRehearsalStep(0); }} 
+          onClick={() => { setView("home"); setSelectedOS(null); setSelectedSymptom(null); setRehearsalOS(null); setRehearsalStep(0); }} 
           className="p-2 bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 hover:border-slate-500 transition-all active:scale-95"
           title="トップ"
         >
@@ -1176,7 +1155,7 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
     if (historyLogs.length === 0) return;
     
     // Header for CSV
-    const headers = ["ID", "Date", "Time", "Result", "Symptom", "OS", "AI Consulted", "Steps Tried", "User Notes", "Final Resolution"];
+    const headers = ["ID", "Date", "Time", "Result", "Symptom", "OS", "Steps Tried", "User Notes", "Final Resolution"];
     
     // Convert logs to rows
     const rows = historyLogs.map(log => [
@@ -1186,7 +1165,6 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
       log.result,
       `"${log.symptom.replace(/"/g, '""')}"`,
       log.os,
-      log.aiConsulted ? "Yes" : "No",
       `"${log.steps.join(' | ').replace(/"/g, '""')}"`,
       `"${(log.notes || "").replace(/"/g, '""')}"`,
       `"${(log.staffResolution || "").replace(/"/g, '""')}"`
@@ -1302,10 +1280,6 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
                       <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-inner">
                         <p className="text-[9px] font-black text-slate-500 uppercase mb-2 tracking-widest">Environment</p>
                         <p className="text-sm font-bold text-white">{log.os}</p>
-                      </div>
-                      <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-inner">
-                        <p className="text-[9px] font-black text-slate-500 uppercase mb-2 tracking-widest">AI Support</p>
-                        <p className="text-sm font-bold text-white">{log.aiConsulted ? "CONSULTED" : "N/A"}</p>
                       </div>
                       <div className="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-inner">
                         <p className="text-[9px] font-black text-slate-500 uppercase mb-2 tracking-widest">Protocol</p>
