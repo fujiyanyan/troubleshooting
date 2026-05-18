@@ -15,7 +15,6 @@ import {
   Home, 
   History,
   RefreshCw, 
-  MessageSquare, 
   Copy,
   ExternalLink,
   Edit,
@@ -34,7 +33,6 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import Markdown from "react-markdown";
-import { askGemini } from "./services/geminiService";
 
 // --- Base64 Images ---
 // The following paths are placeholders. 
@@ -785,7 +783,6 @@ interface SupportLog {
   symptom: string;
   os: string;
   steps: string[];
-  aiConsulted: boolean;
   notes?: string;
   staffResolution?: string;
 }
@@ -1005,7 +1002,6 @@ export default function App() {
       symptom: selectedSymptom?.txt,
       os: selectedOS?.toUpperCase() || "N/A",
       steps: tried,
-      aiConsulted: chatMessages.length > 0,
       notes: userNotes
     };
 
@@ -1021,7 +1017,6 @@ export default function App() {
       setPendingResult(null);
       setSelectedOS(null);
       setSelectedSymptom(null);
-      setChatMessages([]);
       setView("home");
     }
   };
@@ -1785,107 +1780,6 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
             </motion.div>
           )}
         </div>
-
-        {/* AI Chat Toggle */}
-
-        {/* AI Chat Toggle */}
-        <button 
-          onClick={() => setIsAiOpen(true)}
-          className="fixed bottom-24 right-4 bg-accent text-white p-4 rounded-full shadow-xl shadow-accent/30 z-20 active:scale-90 transition-transform"
-        >
-          <MessageSquare className="w-6 h-6" />
-        </button>
-
-        {/* AI Chat Sidebar/Overlay */}
-        <AnimatePresence>
-          {isAiOpen && (
-            <motion.div 
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-0 bg-navy z-50 flex flex-col max-w-[680px] mx-auto shadow-2xl text-white"
-            >
-              <div className="px-4 py-5 flex items-center justify-between border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-accent/20 rounded-lg">
-                    <MessageSquare className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-sm tracking-tight">AI 診断ターミナル</h3>
-                    <div className="flex items-center gap-1.5 opacity-50">
-                      <div className="w-1.5 h-1.5 rounded-full bg-success" />
-                      <span className="text-[9px] uppercase tracking-widest font-mono">Quantum Connection Active</span>
-                    </div>
-                  </div>
-                </div>
-                <button onClick={() => setIsAiOpen(false)} className="p-2 hover:bg-white/10 rounded-lg group transition-all">
-                  <ArrowLeft className="w-5 h-5 rotate-180 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </div>
-
-              <div ref={chatScrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-[#0a0b0d]">
-                {chatMessages.length === 0 && (
-                  <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-40">
-                    <div className="w-16 h-16 border border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_10s_linear_infinite]">
-                      <Settings className="w-8 h-8" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-mono uppercase tracking-widest mb-1">Waiting for user input...</p>
-                      <p className="text-xs opacity-70">「音が出ない理由は？」「画面が青いままです」<br />現在の状況を自由に入力してください。</p>
-                    </div>
-                  </div>
-                )}
-                {chatMessages.map((msg, i) => (
-                  <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                    <div className={`max-w-[85%] ${msg.role === "user" ? "text-right" : "text-left"}`}>
-                      <p className="text-[10px] font-mono opacity-30 mb-1 uppercase tracking-tighter">
-                        {msg.role === "user" ? "LOCAL_USER" : "REMOTE_AI_ADVISOR"} // {new Date().toLocaleTimeString()}
-                      </p>
-                      <div className={`px-4 py-3 rounded-xl text-sm leading-relaxed ${msg.role === "user" ? "bg-accent text-white shadow-lg shadow-accent/20" : "bg-white/5 border border-white/10 text-gray-200"}`}>
-                        <div className="markdown-body">
-                          <Markdown>{msg.parts[0].text}</Markdown>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                {isTyping && (
-                  <div className="flex justify-start">
-                    <div className="bg-white/5 border border-white/10 px-4 py-3 rounded-xl flex gap-1.5 items-center">
-                      <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-accent rounded-full" />
-                      <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-accent rounded-full" />
-                      <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 bg-accent rounded-full" />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="p-4 bg-navy border-t border-white/10 flex gap-3">
-                <div className="flex-1 relative">
-                  <input 
-                    type="text" 
-                    value={chatInput}
-                    onChange={(e) => setAiInput(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                    placeholder="機材の状況を入力して相談..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 placeholder:text-white/20 transition-all"
-                  />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-mono text-white/20 pointer-events-none">
-                    ENTER TO SEND
-                  </div>
-                </div>
-                <button 
-                  onClick={handleSendMessage}
-                  disabled={!chatInput.trim()}
-                  className="bg-accent hover:bg-blue-600 text-white p-3 rounded-xl transition-all disabled:opacity-30 disabled:hover:bg-accent shrink-0"
-                >
-                  <RefreshCw className={`w-5 h-5 ${isTyping ? "animate-spin" : ""}`} />
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
     );
   }
