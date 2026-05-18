@@ -1481,23 +1481,6 @@ ${triedList.length > 0 ? triedList.map((t, i) => `  ${i + 1}. ${t}`).join("\n") 
             </div>
           </section>
 
-          <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700 flex gap-5 shadow-inner relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-1.5 h-full bg-blue-600" />
-            <div className="p-3 bg-blue-600/20 rounded-xl shrink-0 border border-blue-600/30">
-              <Sparkles className="w-6 h-6 text-blue-400" />
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-500 mb-1 uppercase tracking-widest leading-none">Smart Assistant</p>
-              <button 
-                onClick={() => setIsAiOpen(true)}
-                className="text-left group"
-              >
-                <p className="text-sm text-slate-300 leading-relaxed font-medium group-hover:text-blue-400 transition-colors">
-                  どこに分類されるかわからない場合は、<span className="underline underline-offset-4 decoration-blue-500/30">AIに症状を相談</span>してください。
-                </p>
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     );
